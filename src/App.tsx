@@ -10,6 +10,21 @@ function App() {
 		<p>
 			pc-configurator
 		</p>
+		<p>
+			Features
+		</p>
+		<p>
+			Konfiguration eines Dekstop-PCs
+		</p>
+		<p>
+			Nicht Kompatible Komponenten ausblenden
+		</p>
+		<p>
+			Automatische Errechnung des Gesamtpreises
+		</p>
+		<p>
+			Filterfunktion für Komponenten
+		</p>
 	  </header>
 	</div>
   );
