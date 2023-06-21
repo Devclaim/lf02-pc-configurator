@@ -7,11 +7,11 @@ function App() {
 	<div className="App">
 	  <header className="App-header">
 		<img src={logo} className="App-logo" alt="logo" />
-		<p>
+		<p className='font-bold'>
 			pc-configurator
 		</p>
 		<p>
-			Features
+			Features:
 		</p>
 		<p>
 			Konfiguration eines Dekstop-PCs
