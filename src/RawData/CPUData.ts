@@ -1,4 +1,4 @@
-import { CPU } from "./Interfaces";
+import { CPU } from "./RawDataInterfaces";
 
 export const cpus: CPU[] = [
 

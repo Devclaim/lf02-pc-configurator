@@ -1,4 +1,4 @@
-import { Storage } from "./Interfaces";
+import { Storage } from "./RawDataInterfaces";
 
 export const storages: Storage[] = [
 

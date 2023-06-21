@@ -1,4 +1,4 @@
-import { RAM } from "./Interfaces";
+import { RAM } from "./RawDataInterfaces";
 
 export const rams: RAM[] = [
 

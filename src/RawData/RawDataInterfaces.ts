@@ -2,6 +2,7 @@ export interface ComputerComponent {
     manufacturer: string;
     model: string;
     price: number;
+    powerRequirement: number;
 }
 
 export interface Motherboard extends ComputerComponent {
@@ -12,20 +13,17 @@ export interface Motherboard extends ComputerComponent {
     pcieRequirement: number;
     sataSlots: number;
     usbPorts: number;
-    powerRequirement: number;
 }
 
 export interface CPU extends ComputerComponent {
     cores: number;
     clockSpeed: number;
     socket: string;
-    powerRequirement: number;
 }
 
 export interface GPU extends ComputerComponent {
     memory: number;
     computeUnits: number;
-    powerRequirement: number;
     pcieRequirement: number;
 }
 

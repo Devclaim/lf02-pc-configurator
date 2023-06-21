@@ -1,4 +1,4 @@
-import { PowerSupply } from "./Interfaces";
+import { PowerSupply } from "./RawDataInterfaces";
 
 export const powerSupplies: PowerSupply[] = [
 

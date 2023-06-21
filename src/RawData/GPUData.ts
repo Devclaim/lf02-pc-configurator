@@ -1,4 +1,4 @@
-import { GPU } from "./Interfaces";
+import { GPU } from "./RawDataInterfaces";
 
 export const gpus: GPU[] = [
 

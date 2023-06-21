@@ -1,4 +1,4 @@
-import { Motherboard } from "./Interfaces";
+import { Motherboard } from "./RawDataInterfaces";
 
 export const motherboards: Motherboard[] = [
     {

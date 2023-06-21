@@ -1,4 +1,4 @@
-import { Cooler } from "./Interfaces";
+import { Cooler } from "./RawDataInterfaces";
 
 export const coolers: Cooler[] = [
 
