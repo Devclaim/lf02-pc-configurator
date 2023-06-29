@@ -18,5 +18,5 @@ export function coolerIsCompatible(cooler: Cooler, cpu: CPU): boolean {
 
 export function powerSupplyIsCompatible(powerSupply: PowerSupply, components: ComputerComponent[]): boolean {
     const totalPowerRequirement = components.reduce((total, component) => total + (component.powerRequirement || 0), 0);
-    return powerSupply.wattage >= totalPowerRequirement;
+    return powerSupply.powerRequirement >= totalPowerRequirement;
 }

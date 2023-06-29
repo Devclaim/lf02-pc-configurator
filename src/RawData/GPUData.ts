@@ -1,5 +1,58 @@
 import { GPU } from "./RawDataInterfaces";
 
 export const gpus: GPU[] = [
-
+    {
+        manufacturer: "ASUS",
+        model: "ROG Strix GeForce RTX 4090 OC",
+        price: 1998.34,
+        powerRequirement: 450,
+        memory: 24,
+        computeUnits: 86,
+        pcieRequirement: 4.0,
+    },
+    {
+        manufacturer: "MSI",
+        model: "GeForce RTX 3060 Ventus 2X 12G OC",
+        price: 299.80,
+        powerRequirement: 170,
+        memory: 12,
+        computeUnits: 13,
+        pcieRequirement: 4.0,
+    },
+    {
+        manufacturer: "ASUS",
+        model: "NVIDIA GeForce GT 710",
+        price: 53.80,
+        powerRequirement: 19,
+        memory: 2,
+        computeUnits: 0.2,
+        pcieRequirement: 2.0,
+    },
+    {
+        manufacturer: "Intel",
+        model: "Arc A750 Graphics",
+        price: 293.80,
+        powerRequirement: 225,
+        memory: 8,
+        computeUnits: 30,
+        pcieRequirement: 4.0,
+    },
+    {
+        manufacturer: "GIGABYTE",
+        model: "GeForce RTX 3050 Eagle",
+        price: 260.80,
+        powerRequirement: 130,
+        memory: 8,
+        computeUnits: 9,
+        pcieRequirement: 4.0,
+    },
+    {
+        manufacturer: "GIGABYTE",
+        model: "GeForce RTX 3060 Ti Eagle",
+        price: 337.80,
+        powerRequirement: 200,
+        memory: 8,
+        computeUnits: 16,
+        pcieRequirement: 4.0,
+    },
 ]

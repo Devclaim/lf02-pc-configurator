@@ -18,6 +18,7 @@ export interface Motherboard extends ComputerComponent {
 export interface CPU extends ComputerComponent {
     cores: number;
     clockSpeed: number;
+    turboClockSpeed: number;
     socket: string;
 }
 
@@ -43,5 +44,4 @@ export interface Cooler extends ComputerComponent {
 }
 
 export interface PowerSupply extends ComputerComponent {
-    wattage: number;
 }
