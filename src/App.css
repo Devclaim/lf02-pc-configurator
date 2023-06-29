@@ -28,6 +28,23 @@
   color: #61dafb;
 }
 
+.grid_item {
+  display: grid;
+  grid-template-columns: 150px;
+  grid-template-rows: 1fr;
+}
+
+.grid_item > dt {
+  font-weight: 600;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.grid_item > dd {
+  grid-column: 2;
+  grid-row: 1;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
