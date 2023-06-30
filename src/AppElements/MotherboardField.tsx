@@ -1,6 +1,8 @@
+import React from 'react';
 import { Motherboard } from '../RawData/RawDataInterfaces';
 import { motherboards } from '../RawData/MottherboardData';
 import { ReactComponent as ArrowDownSvg } from '../Icons/arrow-down.svg';
+import { brandFilters } from '../RawData/Filters';
 
 type Props = {
     currentMotherboard: Motherboard;
@@ -8,6 +10,17 @@ type Props = {
 }
 
 export function MotherboardField({currentMotherboard, handleClick}: Props) {
+    const [activeBrandFilters, setActiveBrandFilters] = React.useState<string[]>([])
+
+    function handleBrandClick(e: React.MouseEvent<HTMLButtonElement>) {
+        const newFilter: string = e.currentTarget.dataset['brand']!;
+
+        if(!activeBrandFilters.includes(newFilter)) {
+            setActiveBrandFilters([...activeBrandFilters, newFilter])
+        } else {
+            setActiveBrandFilters(activeBrandFilters => activeBrandFilters.filter((filter) => filter != newFilter))
+        }
+    }
 
     return(
         <details className='[MotherboardField] bg-[white] rounded-lg w-full max-w-7xl group'>
@@ -20,7 +33,23 @@ export function MotherboardField({currentMotherboard, handleClick}: Props) {
                 </div>
                 <span> {currentMotherboard.manufacturer + " " + currentMotherboard.model} </span>
             </summary>
-
+            <div className='[BrandFilters] text-white bg-slate-700 w-full p-5 gap-5 flex text-2xl items-center'>
+                <b>Brand Filters: </b>
+                {
+                    brandFilters.map((brand, index) =>{
+                        return(
+                            <button
+                                data-brand={brand}
+                                key={index}
+                                className={`text-xl rounded-2xl ${activeBrandFilters.includes(brand) ? 'bg-white text-black' : ''} border-white border-2 p-2`}
+                                onClick={handleBrandClick}
+                            >
+                                {brand}
+                            </button>
+                        )
+                    })
+                }
+            </div>
             <div className='grid grid-cols-1 lg:grid-cols-2 p-5 gap-5'>
                 {
                     motherboards.map((board, index) => {
@@ -29,7 +58,8 @@ export function MotherboardField({currentMotherboard, handleClick}: Props) {
                                 key={index}
                                 className= {
                                     'rounded-lg border-4 p-5 flex cursor-pointer '
-                                    + `${board == currentMotherboard ? 'border-green-600 bg-green-100' : 'border-black'}`
+                                    + `${board == currentMotherboard ? 'border-green-600 bg-green-100' : 'border-black'} `
+                                    + `${activeBrandFilters.length > 0 ? activeBrandFilters.includes(board.manufacturer) ? '' : 'hidden' : ''}`
                                 }
                                 onClick={(e) => handleClick(e, board)}
                             >

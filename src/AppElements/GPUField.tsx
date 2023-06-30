@@ -2,6 +2,8 @@ import { GPU, Motherboard } from '../RawData/RawDataInterfaces';
 import { gpus } from '../RawData/GPUData';
 import { ReactComponent as ArrowDownSvg } from '../Icons/arrow-down.svg';
 import { gpuIsCompatible } from '../Compatibility/CompatibilityFunctions';
+import { brandFilters } from '../RawData/Filters';
+import React from 'react';
 
 type Props = {
     currentGPU: GPU;
@@ -10,6 +12,18 @@ type Props = {
 }
 
 export function GPUField({currentGPU, currentMotherboard, handleClick}: Props) {
+    const [activeBrandFilters, setActiveBrandFilters] = React.useState<string[]>([])
+
+    function handleBrandClick(e: React.MouseEvent<HTMLButtonElement>) {
+        const newFilter: string = e.currentTarget.dataset['brand']!;
+
+        if(!activeBrandFilters.includes(newFilter)) {
+            setActiveBrandFilters([...activeBrandFilters, newFilter])
+        } else {
+            setActiveBrandFilters(activeBrandFilters => activeBrandFilters.filter((filter) => filter != newFilter))
+        }
+    }
+
     return(
         <details className='[GPUField] bg-[white] rounded-lg w-full max-w-7xl group'>
             <summary className='cursor-pointer p-10 flex justify-between text-4xl'>
@@ -21,7 +35,23 @@ export function GPUField({currentGPU, currentMotherboard, handleClick}: Props) {
                 </div>
                 <span className={`${gpuIsCompatible(currentGPU, currentMotherboard) ? '' : 'text-red-500'}`}> {currentGPU.manufacturer + " " + currentGPU.model} </span>
             </summary>
-
+            <div className='[BrandFilters] text-white bg-slate-700 w-full p-5 gap-5 flex text-2xl items-center'>
+                <b>Brand Filters: </b>
+                {
+                    brandFilters.map((brand, index) =>{
+                        return(
+                            <button
+                                data-brand={brand}
+                                key={index}
+                                className={`text-xl rounded-2xl ${activeBrandFilters.includes(brand) ? 'bg-white text-black' : ''} border-white border-2 p-2`}
+                                onClick={handleBrandClick}
+                            >
+                                {brand}
+                            </button>
+                        )
+                    })
+                }
+            </div>
             <div className='grid grid-cols-1 lg:grid-cols-2 p-5 gap-5'>
                 {
                     gpus
@@ -36,7 +66,8 @@ export function GPUField({currentGPU, currentMotherboard, handleClick}: Props) {
                                 className= {
                                     'rounded-lg border-4 p-5 flex cursor-pointer '
                                     + `${gpu == currentGPU ? 'border-green-600 bg-green-100' : 'border-black'} `
-                                    + `${gpuIsCompatible(gpu, currentMotherboard) ? '' : 'opacity-5'}`
+                                    + `${gpuIsCompatible(gpu, currentMotherboard) ? '' : 'opacity-5'} `
+                                    + `${activeBrandFilters.length > 0 ? activeBrandFilters.includes(gpu.manufacturer) ? '' : 'hidden' : ''}`
                                 }
                                 onClick={(e) => handleClick(e, gpu)}
                             >
