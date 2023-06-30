@@ -5,7 +5,7 @@ export function cpuIsCompatible(cpu: CPU, motherboard: Motherboard): boolean {
 }
 
 export function gpuIsCompatible(gpu: GPU, motherboard: Motherboard): boolean {
-    return gpu.powerRequirement <= motherboard.powerRequirement;
+    return motherboard.pcieRequirement >= gpu.pcieRequirement;
 };
 
 export function ramIsCompatible(ram: RAM, motherboard: Motherboard): boolean {
