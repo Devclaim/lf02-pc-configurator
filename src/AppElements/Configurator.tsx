@@ -6,7 +6,10 @@ import { CPUField } from './CPUField';
 import { RAMField } from './RAMField';
 import { StorageField } from './StorageField';
 import { CoolerField } from './CoolerField';
+import { PowerSupply } from '../RawData/RawDataInterfaces';
 import { CurrentBuild } from './CurrentBuild';
+import { PowerSupplyField } from './PowerSupplyField';
+
 
 export function Configurator() {
     const [ currentMotherboard , setCurrentMotherboard] = React.useState<Motherboard>({
@@ -71,6 +74,13 @@ export function Configurator() {
         socket: ""
     });
 
+    const [ currentPowerSupply , setCurrentPowerSupply ] = React.useState<PowerSupply>({
+        manufacturer: "No Power Supply Selected",
+        model: "",
+        price: 0,
+        powerRequirement: 0,
+    });
+
     const [ availableRamSlots, setAvailableRamSlots ] = React.useState<number>(0);
 
     React.useEffect(() => {
@@ -111,6 +121,10 @@ export function Configurator() {
         setCurrentCooler(cooler);
     };
 
+    const clickPowerSupply = (e: React.MouseEvent<HTMLButtonElement> , powerSupply: PowerSupply):void => {
+        setCurrentPowerSupply(powerSupply);
+    }
+
     return(
         <div className='bg-gray-600 min-h-[200vh] flex flex-col xl:flex-row relative'>
             <div className='[CurrentPC] xl:w-[30%] h-fit xl:sticky top-0 right-0 p-10'>
@@ -121,6 +135,7 @@ export function Configurator() {
                     currentCooler={currentCooler}
                     currentRAM={currentRAM}
                     currentStorage={currentStorage}
+                    currentPowerSupply={currentPowerSupply}
                     ramSlotsUsed={ramSlotsUsed}
                 />
             </div>
@@ -155,6 +170,16 @@ export function Configurator() {
                 <StorageField
                     currentStorage={currentStorage}
                     handleClick={clickStorage}
+                />
+                <PowerSupplyField
+                    computerParts={[
+                        currentCPU,
+                        currentGPU,
+                        currentMotherboard,
+                        currentCooler
+                    ]}
+                    currentPowerSupply={currentPowerSupply}
+                    handleClick={clickPowerSupply}
                 />
             </div>
         </div>

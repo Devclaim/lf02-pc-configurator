@@ -1,5 +1,5 @@
 import React from "react";
-import { Motherboard , GPU , CPU, RAM, Storage, Cooler } from '../RawData/RawDataInterfaces';
+import { Motherboard , GPU , CPU, RAM, Storage, Cooler, PowerSupply } from '../RawData/RawDataInterfaces';
 import { gpuIsCompatible, cpuIsCompatible, coolerIsCompatible, ramIsCompatible }  from "../Compatibility/CompatibilityFunctions";
 
 type Props = {
@@ -9,10 +9,11 @@ type Props = {
     currentCooler: Cooler;
     currentRAM: RAM;
     currentStorage: Storage;
+    currentPowerSupply: PowerSupply;
     ramSlotsUsed: number;
 }
 
-export function CurrentBuild({currentMotherboard, currentGPU , currentCPU , currentCooler , currentRAM , currentStorage , ramSlotsUsed}: Props) {
+export function CurrentBuild({currentMotherboard, currentGPU , currentCPU , currentCooler , currentRAM , currentStorage , currentPowerSupply ,ramSlotsUsed}: Props) {
     return(
         <div 
             className={
@@ -25,8 +26,9 @@ export function CurrentBuild({currentMotherboard, currentGPU , currentCPU , curr
                 <p className="border-b-2 border-black p-5">{currentGPU.manufacturer + " " + currentGPU.model}</p>
                 <p className="border-b-2 border-black p-5">{currentCPU.manufacturer + " " + currentCPU.model}</p>
                 <p className="border-b-2 border-black p-5">{currentCooler.manufacturer + " " + currentCooler.model}</p>
-                <p className="border-b-2 border-black p-5">{currentRAM.manufacturer + " " + currentRAM.model}</p>
-                <p className="p-5">{currentStorage.manufacturer + " " + currentStorage.model}</p>
+                <p className="border-b-2 border-black p-5">{currentRAM.manufacturer + " " + currentRAM.model + " x" + ramSlotsUsed}</p>
+                <p className="border-b-2 border-black p-5">{currentStorage.manufacturer + " " + currentStorage.model}</p>
+                <p className="p-5">{currentPowerSupply.manufacturer + " " + currentPowerSupply.model}</p>
             </div>
             <p className="flex justify-between">
                 <b>Price:</b>
@@ -37,7 +39,8 @@ export function CurrentBuild({currentMotherboard, currentGPU , currentCPU , curr
                         currentCPU.price +
                         currentCooler.price +
                         (currentRAM.price * ramSlotsUsed) +
-                        currentStorage.price).toFixed(2)
+                        currentStorage.price
+                        +currentPowerSupply.price).toFixed(2)
                         + "€"
                     }
                 </b>
