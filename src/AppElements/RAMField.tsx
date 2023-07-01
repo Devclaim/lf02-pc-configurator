@@ -1,17 +1,20 @@
-import { GPU, Motherboard } from '../RawData/RawDataInterfaces';
-import { gpus } from '../RawData/GPUData';
+import { RAM, Motherboard } from '../RawData/RawDataInterfaces';
+import { rams } from '../RawData/RAMData';
 import { ReactComponent as ArrowDownSvg } from '../Icons/arrow-down.svg';
-import { gpuIsCompatible } from '../Compatibility/CompatibilityFunctions';
+import { ramIsCompatible } from '../Compatibility/CompatibilityFunctions';
 import { brandFilters } from '../RawData/Filters';
 import React from 'react';
 
 type Props = {
-    currentGPU: GPU;
+    currentRAM: RAM;
     currentMotherboard: Motherboard;
-    handleClick: (e: React.MouseEvent<HTMLButtonElement> , gpu: GPU) => void;
+    handleClick: (e: React.MouseEvent<HTMLButtonElement> , ram: RAM) => void;
+    availableRamSlots: number;
+    ramSlotsUsed: number;
+    clickMoreRam: () => void;
 }
 
-export function GPUField({currentGPU, currentMotherboard, handleClick}: Props) {
+export function RAMField({currentRAM, currentMotherboard, handleClick , availableRamSlots , ramSlotsUsed, clickMoreRam}: Props) {
     const [activeBrandFilters, setActiveBrandFilters] = React.useState<string[]>([])
 
     function handleBrandClick(e: React.MouseEvent<HTMLButtonElement>) {
@@ -27,18 +30,30 @@ export function GPUField({currentGPU, currentMotherboard, handleClick}: Props) {
     return(
         <details 
             className={
-                '[GPUField] bg-[white] rounded-lg w-full max-w-7xl group '
+                '[RAMField] bg-[white] rounded-lg w-full max-w-7xl group '
                 + `${currentMotherboard.manufacturer === 'No Motherboard Selected' ? 'opacity-5' : ''}`
             }
         >
-            <summary className='cursor-pointer p-10 flex justify-between text-4xl'>
+            <summary className='cursor-pointer p-10 flex justify-between text-4xl items-center'>
                 <div className='flex gap-5'>
                     <ArrowDownSvg
                         className='group-open:rotate-180 h-full'
                     />
-                    <b>GPU</b>
+                    <b>Memory</b>
+                    <span>{availableRamSlots}Slots</span>
                 </div>
-                <span className={`${gpuIsCompatible(currentGPU, currentMotherboard) ? '' : 'text-red-500'}`}> {currentGPU.manufacturer + " " + currentGPU.model} </span>
+                <div>
+                    <span className={`${ramIsCompatible(currentRAM, currentMotherboard) ? '' : 'text-red-500'}`}> {currentRAM.manufacturer + " " + currentRAM.model} </span>
+                    <button 
+                        onClick={clickMoreRam} 
+                        className={
+                            'rounded-lg border-2 p-2 ml-5 '
+                            + `${ramSlotsUsed == 0 ? 'border-red-500' : 'border-black'}`
+                        }
+                    >
+                        x{ramSlotsUsed}
+                    </button>
+                </div>
             </summary>
             <div className='[BrandFilters] text-white bg-slate-700 w-full p-5 gap-5 flex text-2xl items-center'>
                 <b>Brand Filters: </b>
@@ -59,48 +74,44 @@ export function GPUField({currentGPU, currentMotherboard, handleClick}: Props) {
             </div>
             <div className='grid grid-cols-1 lg:grid-cols-2 p-5 gap-5'>
                 {
-                    gpus
+                    rams
                     .sort(
-                        (a, b) => (gpuIsCompatible(a, currentMotherboard) ? 0 : 1) - (gpuIsCompatible(b, currentMotherboard) ? 0 : 1)
+                        (a, b) => (ramIsCompatible(a, currentMotherboard) ? 0 : 1) - (ramIsCompatible(b, currentMotherboard) ? 0 : 1)
                     )
-                    .map((gpu, index) => {
+                    .map((ram, index) => {
                         return(
                             <button
-                                disabled={!gpuIsCompatible(gpu, currentMotherboard)}
+                                disabled={!ramIsCompatible(ram, currentMotherboard)}
                                 key={index}
                                 className= {
                                     'rounded-lg border-4 p-5 flex cursor-pointer '
-                                    + `${gpu == currentGPU ? 'border-green-600 bg-green-100' : 'border-black'} `
-                                    + `${gpuIsCompatible(gpu, currentMotherboard) ? '' : 'opacity-5'} `
-                                    + `${activeBrandFilters.length > 0 ? activeBrandFilters.includes(gpu.manufacturer) ? '' : 'hidden' : ''}`
+                                    + `${ram == currentRAM ? 'border-green-600 bg-green-100' : 'border-black'} `
+                                    + `${ramIsCompatible(ram, currentMotherboard) ? '' : 'opacity-5'} `
+                                    + `${activeBrandFilters.length > 0 ? activeBrandFilters.includes(ram.manufacturer) ? '' : 'hidden' : ''}`
                                 }
-                                onClick={(e) => handleClick(e, gpu)}
+                                onClick={(e) => handleClick(e, ram)}
                             >
                                 <img
                                     className='w-[20%] object-contain'
-                                    src={require(`../Icons/${gpu.manufacturer}-logo.png`)}
+                                    src={require(`../Icons/${ram.manufacturer}-logo.png`)}
                                 />
                                 <div className='flex flex-col text-2xl pl-5 text-left w-full h-full justify-between'>
                                     <div className='flex justify-between w-full pb-2'> 
-                                        <b>{gpu.manufacturer + " " + gpu.model}</b>
-                                        <b className='text-[green] pl-5'>{gpu.price + "€"}</b>
+                                        <b>{ram.manufacturer + " " + ram.model}</b>
+                                        <b className='text-[green] pl-5'>{ram.price + "€"}</b>
                                     </div>
                                     <div>
                                         <div className='grid_item bg-gray-300'>
-                                            <dt>TDP:</dt>
-                                            <dd>{gpu.powerRequirement}W</dd>
+                                            <dt>Capacity:</dt>
+                                            <dd>{ram.capacity} GB</dd>
                                         </div>
                                         <div className='grid_item'>
-                                            <dt>PCIe Req.:</dt>
-                                            <dd>{gpu.pcieRequirement}.0</dd>
+                                            <dt>Speed:</dt>
+                                            <dd>{ram.speed} MHz</dd>
                                         </div>
                                         <div className='grid_item bg-gray-300'>
-                                            <dt>VRAM:</dt>
-                                            <dd>{gpu.memory} GB</dd>
-                                        </div>
-                                        <div className='grid_item'>
-                                            <dt>Comp. Units:</dt>
-                                            <dd>{gpu.computeUnits} TFLOPS</dd>
+                                            <dt>Type:</dt>
+                                            <dd>{ram.ramType}</dd>
                                         </div>
                                     </div>
                                 </div>

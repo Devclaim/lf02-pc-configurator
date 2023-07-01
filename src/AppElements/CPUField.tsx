@@ -1,17 +1,17 @@
-import { GPU, Motherboard } from '../RawData/RawDataInterfaces';
-import { gpus } from '../RawData/GPUData';
+import { CPU, Motherboard } from '../RawData/RawDataInterfaces';
+import { cpus } from '../RawData/CPUData';
 import { ReactComponent as ArrowDownSvg } from '../Icons/arrow-down.svg';
-import { gpuIsCompatible } from '../Compatibility/CompatibilityFunctions';
+import { cpuIsCompatible } from '../Compatibility/CompatibilityFunctions';
 import { brandFilters } from '../RawData/Filters';
 import React from 'react';
 
 type Props = {
-    currentGPU: GPU;
+    currentCPU: CPU;
     currentMotherboard: Motherboard;
-    handleClick: (e: React.MouseEvent<HTMLButtonElement> , gpu: GPU) => void;
+    handleClick: (e: React.MouseEvent<HTMLButtonElement> , cpu: CPU) => void;
 }
 
-export function GPUField({currentGPU, currentMotherboard, handleClick}: Props) {
+export function CPUField({currentCPU, currentMotherboard, handleClick}: Props) {
     const [activeBrandFilters, setActiveBrandFilters] = React.useState<string[]>([])
 
     function handleBrandClick(e: React.MouseEvent<HTMLButtonElement>) {
@@ -36,9 +36,9 @@ export function GPUField({currentGPU, currentMotherboard, handleClick}: Props) {
                     <ArrowDownSvg
                         className='group-open:rotate-180 h-full'
                     />
-                    <b>GPU</b>
+                    <b>CPU</b>
                 </div>
-                <span className={`${gpuIsCompatible(currentGPU, currentMotherboard) ? '' : 'text-red-500'}`}> {currentGPU.manufacturer + " " + currentGPU.model} </span>
+                <span className={`${cpuIsCompatible(currentCPU, currentMotherboard) ? '' : 'text-red-500'}`}> {currentCPU.manufacturer + " " + currentCPU.model} </span>
             </summary>
             <div className='[BrandFilters] text-white bg-slate-700 w-full p-5 gap-5 flex text-2xl items-center'>
                 <b>Brand Filters: </b>
@@ -59,48 +59,52 @@ export function GPUField({currentGPU, currentMotherboard, handleClick}: Props) {
             </div>
             <div className='grid grid-cols-1 lg:grid-cols-2 p-5 gap-5'>
                 {
-                    gpus
+                    cpus
                     .sort(
-                        (a, b) => (gpuIsCompatible(a, currentMotherboard) ? 0 : 1) - (gpuIsCompatible(b, currentMotherboard) ? 0 : 1)
+                        (a, b) => (cpuIsCompatible(a, currentMotherboard) ? 0 : 1) - (cpuIsCompatible(b, currentMotherboard) ? 0 : 1)
                     )
-                    .map((gpu, index) => {
+                    .map((cpu, index) => {
                         return(
                             <button
-                                disabled={!gpuIsCompatible(gpu, currentMotherboard)}
+                                disabled={!cpuIsCompatible(cpu, currentMotherboard)}
                                 key={index}
                                 className= {
                                     'rounded-lg border-4 p-5 flex cursor-pointer '
-                                    + `${gpu == currentGPU ? 'border-green-600 bg-green-100' : 'border-black'} `
-                                    + `${gpuIsCompatible(gpu, currentMotherboard) ? '' : 'opacity-5'} `
-                                    + `${activeBrandFilters.length > 0 ? activeBrandFilters.includes(gpu.manufacturer) ? '' : 'hidden' : ''}`
+                                    + `${cpu == currentCPU ? 'border-green-600 bg-green-100' : 'border-black'} `
+                                    + `${cpuIsCompatible(cpu, currentMotherboard) ? '' : 'opacity-5'} `
+                                    + `${activeBrandFilters.length > 0 ? activeBrandFilters.includes(cpu.manufacturer) ? '' : 'hidden' : ''}`
                                 }
-                                onClick={(e) => handleClick(e, gpu)}
+                                onClick={(e) => handleClick(e, cpu)}
                             >
                                 <img
                                     className='w-[20%] object-contain'
-                                    src={require(`../Icons/${gpu.manufacturer}-logo.png`)}
+                                    src={require(`../Icons/${cpu.manufacturer}-logo.png`)}
                                 />
                                 <div className='flex flex-col text-2xl pl-5 text-left w-full h-full justify-between'>
                                     <div className='flex justify-between w-full pb-2'> 
-                                        <b>{gpu.manufacturer + " " + gpu.model}</b>
-                                        <b className='text-[green] pl-5'>{gpu.price + "€"}</b>
+                                        <b>{cpu.manufacturer + " " + cpu.model}</b>
+                                        <b className='text-[green] pl-5'>{cpu.price + "€"}</b>
                                     </div>
                                     <div>
                                         <div className='grid_item bg-gray-300'>
                                             <dt>TDP:</dt>
-                                            <dd>{gpu.powerRequirement}W</dd>
+                                            <dd>{cpu.powerRequirement}W</dd>
                                         </div>
                                         <div className='grid_item'>
-                                            <dt>PCIe Req.:</dt>
-                                            <dd>{gpu.pcieRequirement}.0</dd>
+                                            <dt>Socket:</dt>
+                                            <dd>{cpu.socket}</dd>
                                         </div>
                                         <div className='grid_item bg-gray-300'>
-                                            <dt>VRAM:</dt>
-                                            <dd>{gpu.memory} GB</dd>
+                                            <dt>Cores:</dt>
+                                            <dd>{cpu.cores}</dd>
                                         </div>
                                         <div className='grid_item'>
-                                            <dt>Comp. Units:</dt>
-                                            <dd>{gpu.computeUnits} TFLOPS</dd>
+                                            <dt>Clock Base:</dt>
+                                            <dd>{cpu.clockSpeed} GHz</dd>
+                                        </div>
+                                        <div className='grid_item bg-gray-300'>
+                                            <dt>Clock Turbo:</dt>
+                                            <dd>{cpu.turboClockSpeed} GHz</dd>
                                         </div>
                                     </div>
                                 </div>

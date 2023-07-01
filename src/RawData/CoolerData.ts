@@ -2,7 +2,7 @@ import { Cooler } from "./RawDataInterfaces";
 
 export const coolers: Cooler[] = [
     {
-        manufacturer: "TItan",
+        manufacturer: "Titan",
         model: "DC-155A915Z/R",
         price: 8,
         powerRequirement: 65,

@@ -2,5 +2,12 @@ export const brandFilters: string[] = [
     'ASUS',
     'Intel',
     'MSI',
-    'GIGABYTE'
+    'GIGABYTE',
+    'AMD'
+]
+
+export const brandFiltersCooler: string[] = [
+    'Arctic',
+    'Xilence',
+    'Titan'
 ]

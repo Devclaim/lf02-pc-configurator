@@ -1,7 +1,7 @@
 import { CPU, ComputerComponent, Cooler, GPU, Motherboard, PowerSupply, RAM } from "../RawData/RawDataInterfaces";
 
 export function cpuIsCompatible(cpu: CPU, motherboard: Motherboard): boolean {
-    return cpu.socket === motherboard.socket && cpu.powerRequirement <= motherboard.powerRequirement;
+    return cpu.socket === motherboard.socket;
 }
 
 export function gpuIsCompatible(gpu: GPU, motherboard: Motherboard): boolean {
@@ -12,8 +12,8 @@ export function ramIsCompatible(ram: RAM, motherboard: Motherboard): boolean {
     return ram.ramType === motherboard.ramType;
 };
 
-export function coolerIsCompatible(cooler: Cooler, cpu: CPU): boolean {
-    return cooler.socket === cpu.socket;
+export function coolerIsCompatible(cooler: Cooler, motherboard: Motherboard): boolean {
+    return cooler.socket === motherboard.socket;
 }
 
 export function powerSupplyIsCompatible(powerSupply: PowerSupply, components: ComputerComponent[]): boolean {
