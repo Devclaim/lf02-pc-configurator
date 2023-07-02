@@ -126,8 +126,8 @@ export function Configurator() {
     }
 
     return(
-        <div className='bg-gray-600 min-h-[200vh] flex flex-col xl:flex-row relative'>
-            <div className='[CurrentPC] xl:w-[30%] h-fit xl:sticky top-0 right-0 p-10'>
+        <div className='bg-gray-600 min-h-[150vh] flex flex-col xl:flex-row relative'>
+            <div className='[CurrentPC] xl:w-[30%] h-fit xl:sticky top-0 right-0 p-5 sm:p-10'>
                 <CurrentBuild
                     currentMotherboard={currentMotherboard}
                     currentGPU={currentGPU}
@@ -139,7 +139,7 @@ export function Configurator() {
                     ramSlotsUsed={ramSlotsUsed}
                 />
             </div>
-            <div className='[ComponentFields] p-5  md:p-10 flex flex-col space-y-5 md:space-y-10 xl:w-[70%]'>
+            <div className='[ComponentFields] p-5 md:p-10 flex flex-col space-y-5 md:space-y-10 xl:w-[70%]'>
                 <MotherboardField
                     currentMotherboard={currentMotherboard}
                     handleClick={clickMotherboard}

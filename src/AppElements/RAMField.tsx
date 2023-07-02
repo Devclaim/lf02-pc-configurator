@@ -34,7 +34,7 @@ export function RAMField({currentRAM, currentMotherboard, handleClick , availabl
                 + `${currentMotherboard.manufacturer === 'No Motherboard Selected' ? 'opacity-5' : ''}`
             }
         >
-            <summary className='cursor-pointer p-5 flex flex-wrap justify-between text-3xl items-center'>
+            <summary className='cursor-pointer p-5 sm:p-10 flex flex-wrap justify-between text-2xl items-center'>
                 <div className='flex gap-5 items-center'>
                     <ArrowDownSvg
                         className='group-open:rotate-180 h-full'
@@ -45,7 +45,7 @@ export function RAMField({currentRAM, currentMotherboard, handleClick , availabl
                     </div>
                 </div>
                 <div>
-                    <span className={`${ramIsCompatible(currentRAM, currentMotherboard) ? '' : 'text-red-500'}`}> {currentRAM.manufacturer + " " + currentRAM.model} </span>
+                    <span className={`${ramIsCompatible(currentRAM, currentMotherboard) ? '' : 'text-red-500'} text-left`}> {currentRAM.manufacturer + " " + currentRAM.model} </span>
                     <button 
                         onClick={clickMoreRam} 
                         className={

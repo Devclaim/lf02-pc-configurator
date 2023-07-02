@@ -30,14 +30,14 @@ export function PowerSupplyField({currentPowerSupply, computerParts, handleClick
                 '[GPUField] bg-[white] rounded-lg w-full group '
             }
         >
-            <summary className='cursor-pointer p-10 flex flex-wrap justify-between text-3xl'>
+            <summary className='cursor-pointer p-5 sm:p-10 flex flex-wrap justify-between text-2xl'>
                 <div className='flex gap-5'>
                     <ArrowDownSvg
                         className='group-open:rotate-180 h-full'
                     />
                     <b>PowerSupply</b>
                 </div>
-                <span className={`${powerSupplyIsCompatible(currentPowerSupply, computerParts) ? '' : 'text-red-500'}`}> {currentPowerSupply.manufacturer + " " + currentPowerSupply.model} </span>
+                <span className={`${powerSupplyIsCompatible(currentPowerSupply, computerParts) ? '' : 'text-red-500'} text-left`}> {currentPowerSupply.manufacturer + " " + currentPowerSupply.model} </span>
             </summary>
             <div className='[BrandFilters] text-white bg-slate-700 w-full p-5 gap-5 flex flex-wrap text-2xl items-center'>
                 <b>Brand Filters: </b>

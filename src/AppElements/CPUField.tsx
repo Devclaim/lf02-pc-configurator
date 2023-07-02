@@ -31,14 +31,14 @@ export function CPUField({currentCPU, currentMotherboard, handleClick}: Props) {
                 + `${currentMotherboard.manufacturer === 'No Motherboard Selected' ? 'opacity-5' : ''}`
             }
         >
-            <summary className='cursor-pointer p-10 flex flex-wrap justify-between text-3xl'>
+            <summary className='cursor-pointer p-5 sm:p-10 flex flex-wrap justify-between text-2xl'>
                 <div className='flex gap-5'>
                     <ArrowDownSvg
                         className='group-open:rotate-180 h-full'
                     />
                     <b>CPU</b>
                 </div>
-                <span className={`${cpuIsCompatible(currentCPU, currentMotherboard) ? '' : 'text-red-500'}`}> {currentCPU.manufacturer + " " + currentCPU.model} </span>
+                <span className={`${cpuIsCompatible(currentCPU, currentMotherboard) ? '' : 'text-red-500'} text-left`}> {currentCPU.manufacturer + " " + currentCPU.model} </span>
             </summary>
             <div className='[BrandFilters] text-white bg-slate-700 w-full p-5 gap-5 flex flex-wrap text-2xl items-center'>
                 <b>Brand Filters: </b>

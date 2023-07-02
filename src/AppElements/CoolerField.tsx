@@ -31,14 +31,14 @@ export function CoolerField({currentCooler, currentMotherboard, handleClick}: Pr
                 + `${currentMotherboard.manufacturer === 'No Motherboard Selected' ? 'opacity-5' : ''}`
             }
         >
-            <summary className='cursor-pointer p-10 flex flex-wrap justify-between text-3xl'>
+            <summary className='cursor-pointer p-5 sm:p-10 flex flex-wrap justify-between text-2xl'>
                 <div className='flex gap-5'>
                     <ArrowDownSvg
                         className='group-open:rotate-180 h-full'
                     />
                     <b>Cooler</b>
                 </div>
-                <span className={`${coolerIsCompatible(currentCooler, currentMotherboard) ? '' : 'text-red-500'}`}> {currentCooler.manufacturer + " " + currentCooler.model} </span>
+                <span className={`${coolerIsCompatible(currentCooler, currentMotherboard) ? '' : 'text-red-500'} text-left`}> {currentCooler.manufacturer + " " + currentCooler.model} </span>
             </summary>
             <div className='[BrandFilters] text-white bg-slate-700 w-full p-5 gap-5 flex text-2xl items-center flex-wrap'>
                 <b>Brand Filters: </b>

@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { Configurator } from './AppElements/Configurator';
 
@@ -7,24 +6,8 @@ function App() {
   return (
 	<div className="App">
 	  <header className="App-header">
-			<img src={logo} className="App-logo" alt="logo" />
 			<p className='font-bold'>
-				pc-configurator
-			</p>
-			<p>
-				Features:
-			</p>
-			<p>
-				Konfiguration eines Dekstop-PCs
-			</p>
-			<p>
-				Nicht Kompatible Komponenten ausblenden
-			</p>
-			<p>
-				Automatische Errechnung des Gesamtpreises
-			</p>
-			<p>
-				Filterfunktion für Komponenten
+				LF02N8 pc-configurator
 			</p>
 		</header>
 		<Configurator></Configurator>
