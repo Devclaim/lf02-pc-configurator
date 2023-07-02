@@ -23,8 +23,8 @@ export function MotherboardField({currentMotherboard, handleClick}: Props) {
     }
 
     return(
-        <details className='[MotherboardField] bg-[white] rounded-lg w-full max-w-7xl group'>
-            <summary className='cursor-pointer p-10 flex justify-between text-4xl'>
+        <details className='[MotherboardField] bg-[white] rounded-lg w-full group'>
+            <summary className='cursor-pointer p-10 flex flex-wrap justify-between text-3xl'>
                 <div className='flex gap-5'>
                     <ArrowDownSvg
                         className='group-open:rotate-180 h-full'
@@ -33,7 +33,7 @@ export function MotherboardField({currentMotherboard, handleClick}: Props) {
                 </div>
                 <span> {currentMotherboard.manufacturer + " " + currentMotherboard.model} </span>
             </summary>
-            <div className='[BrandFilters] text-white bg-slate-700 w-full p-5 gap-5 flex text-2xl items-center'>
+            <div className='[BrandFilters] text-white bg-slate-700 w-full p-5 gap-5 flex flex-wrap text-2xl items-center'>
                 <b>Brand Filters: </b>
                 {
                     brandFilters.map((brand, index) =>{
@@ -57,7 +57,7 @@ export function MotherboardField({currentMotherboard, handleClick}: Props) {
                             <button
                                 key={index}
                                 className= {
-                                    'rounded-lg border-4 p-5 flex cursor-pointer '
+                                    'rounded-lg border-4 p-1 sm:p-5 flex flex-col sm:flex-row cursor-pointer '
                                     + `${board == currentMotherboard ? 'border-green-600 bg-green-100' : 'border-black'} `
                                     + `${activeBrandFilters.length > 0 ? activeBrandFilters.includes(board.manufacturer) ? '' : 'hidden' : ''}`
                                 }
@@ -67,7 +67,7 @@ export function MotherboardField({currentMotherboard, handleClick}: Props) {
                                     className='w-[20%] object-contain'
                                     src={require(`../Icons/${board.manufacturer}-logo.png`)}
                                 />
-                                <div className='flex flex-col text-2xl pl-5 text-left w-full h-full justify-between'>
+                                <div className='flex flex-col text-2xl sm:pl-5 text-left w-full h-full justify-between'>
                                     <div className='flex justify-between w-full pb-2'> 
                                         <b>{board.manufacturer + " " + board.model}</b>
                                         <b className='text-[green] pl-5'>{board.price + "€"}</b>

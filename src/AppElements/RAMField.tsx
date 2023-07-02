@@ -30,17 +30,19 @@ export function RAMField({currentRAM, currentMotherboard, handleClick , availabl
     return(
         <details 
             className={
-                '[RAMField] bg-[white] rounded-lg w-full max-w-7xl group '
+                '[RAMField] bg-[white] rounded-lg w-full group '
                 + `${currentMotherboard.manufacturer === 'No Motherboard Selected' ? 'opacity-5' : ''}`
             }
         >
-            <summary className='cursor-pointer p-10 flex justify-between text-4xl items-center'>
-                <div className='flex gap-5'>
+            <summary className='cursor-pointer p-5 flex flex-wrap justify-between text-3xl items-center'>
+                <div className='flex gap-5 items-center'>
                     <ArrowDownSvg
                         className='group-open:rotate-180 h-full'
                     />
-                    <b>Memory</b>
-                    <span>{availableRamSlots}Slots</span>
+                    <div className='flex flex-col text-left'>
+                        <b>Memory</b>
+                        <span>{availableRamSlots}Slots</span>
+                    </div>
                 </div>
                 <div>
                     <span className={`${ramIsCompatible(currentRAM, currentMotherboard) ? '' : 'text-red-500'}`}> {currentRAM.manufacturer + " " + currentRAM.model} </span>
@@ -55,7 +57,7 @@ export function RAMField({currentRAM, currentMotherboard, handleClick , availabl
                     </button>
                 </div>
             </summary>
-            <div className='[BrandFilters] text-white bg-slate-700 w-full p-5 gap-5 flex text-2xl items-center'>
+            <div className='[BrandFilters] text-white bg-slate-700 w-full p-5 gap-5 flex flex-wrap text-2xl items-center'>
                 <b>Brand Filters: </b>
                 {
                     brandFilters.map((brand, index) =>{
@@ -84,7 +86,7 @@ export function RAMField({currentRAM, currentMotherboard, handleClick , availabl
                                 disabled={!ramIsCompatible(ram, currentMotherboard)}
                                 key={index}
                                 className= {
-                                    'rounded-lg border-4 p-5 flex cursor-pointer '
+                                    'rounded-lg border-4 p-1 sm:p-5 flex flex-col sm:flex-row cursor-pointer '
                                     + `${ram == currentRAM ? 'border-green-600 bg-green-100' : 'border-black'} `
                                     + `${ramIsCompatible(ram, currentMotherboard) ? '' : 'opacity-5'} `
                                     + `${activeBrandFilters.length > 0 ? activeBrandFilters.includes(ram.manufacturer) ? '' : 'hidden' : ''}`
@@ -95,7 +97,7 @@ export function RAMField({currentRAM, currentMotherboard, handleClick , availabl
                                     className='w-[20%] object-contain'
                                     src={require(`../Icons/${ram.manufacturer}-logo.png`)}
                                 />
-                                <div className='flex flex-col text-2xl pl-5 text-left w-full h-full justify-between'>
+                                <div className='flex flex-col text-2xl sm:pl-5 text-left w-full h-full justify-between'>
                                     <div className='flex justify-between w-full pb-2'> 
                                         <b>{ram.manufacturer + " " + ram.model}</b>
                                         <b className='text-[green] pl-5'>{ram.price + "€"}</b>

@@ -1,6 +1,6 @@
 import React from "react";
 import { Motherboard , GPU , CPU, RAM, Storage, Cooler, PowerSupply } from '../RawData/RawDataInterfaces';
-import { gpuIsCompatible, cpuIsCompatible, coolerIsCompatible, ramIsCompatible }  from "../Compatibility/CompatibilityFunctions";
+import { gpuIsCompatible, cpuIsCompatible, coolerIsCompatible, ramIsCompatible, powerSupplyIsCompatible }  from "../Compatibility/CompatibilityFunctions";
 
 type Props = {
     currentMotherboard: Motherboard;
@@ -21,14 +21,14 @@ export function CurrentBuild({currentMotherboard, currentGPU , currentCPU , curr
             }
         >
             <b> Current Build </b>
-            <div>
-                <p className="border-b-2 border-black pb-5">{currentMotherboard.manufacturer + " " + currentMotherboard.model}</p>
-                <p className="border-b-2 border-black p-5">{currentGPU.manufacturer + " " + currentGPU.model}</p>
-                <p className="border-b-2 border-black p-5">{currentCPU.manufacturer + " " + currentCPU.model}</p>
-                <p className="border-b-2 border-black p-5">{currentCooler.manufacturer + " " + currentCooler.model}</p>
-                <p className="border-b-2 border-black p-5">{currentRAM.manufacturer + " " + currentRAM.model + " x" + ramSlotsUsed}</p>
-                <p className="border-b-2 border-black p-5">{currentStorage.manufacturer + " " + currentStorage.model}</p>
-                <p className="p-5">{currentPowerSupply.manufacturer + " " + currentPowerSupply.model}</p>
+            <div className="text-2xl [&_p]:border-black [&_p:not(:last-child)]:border-b-2 [&_p]:p-4">
+                <p>{currentMotherboard.manufacturer + " " + currentMotherboard.model}</p>
+                <p className={`${gpuIsCompatible(currentGPU, currentMotherboard) ? '' : 'text-red-500'}`}>{currentGPU.manufacturer + " " + currentGPU.model}</p>
+                <p className={`${cpuIsCompatible(currentCPU, currentMotherboard) ? '' : 'text-red-500'}`}>{currentCPU.manufacturer + " " + currentCPU.model}</p>
+                <p className={`${coolerIsCompatible(currentCooler, currentMotherboard) ? '' : 'text-red-500'}`}>{currentCooler.manufacturer + " " + currentCooler.model}</p>
+                <p className={`${ramIsCompatible(currentRAM, currentMotherboard) ? '' : 'text-red-500'}`}>{currentRAM.manufacturer + " " + currentRAM.model + " x" + ramSlotsUsed}</p>
+                <p>{currentStorage.manufacturer + " " + currentStorage.model}</p>
+                <p className={`${powerSupplyIsCompatible(currentPowerSupply, [currentMotherboard, currentCPU, currentGPU, currentCooler]) ? '' : 'text-red-500'}`}>{currentPowerSupply.manufacturer + " " + currentPowerSupply.model}</p>
             </div>
             <p className="flex justify-between">
                 <b>Price:</b>

@@ -139,7 +139,7 @@ export function Configurator() {
                     ramSlotsUsed={ramSlotsUsed}
                 />
             </div>
-            <div className='[ComponentFields] p-10 flex flex-col space-y-10 xl:w-[70%]'>
+            <div className='[ComponentFields] p-5  md:p-10 flex flex-col space-y-5 md:space-y-10 xl:w-[70%]'>
                 <MotherboardField
                     currentMotherboard={currentMotherboard}
                     handleClick={clickMotherboard}
