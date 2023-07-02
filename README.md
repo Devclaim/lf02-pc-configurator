@@ -1,6 +1,6 @@
 # LF02-PC-Configurator (Kilian S. / Hakon T. / Burhan K.)
 
-## Lokal testen
+## Test Locally
 
 1.  Install node.js (Check Dependencies)
 2.  Git Clone
