@@ -1,7 +1,7 @@
 import { PowerSupply, ComputerComponent } from '../RawData/RawDataInterfaces';
 import { powerSupplies } from '../RawData/PowerSupplyData';
 import { ReactComponent as ArrowDownSvg } from '../Icons/arrow-down.svg';
-import { brandFilters } from '../RawData/Filters';
+import { brandFiltersPower } from '../RawData/Filters';
 import { powerSupplyIsCompatible } from '../Compatibility/CompatibilityFunctions';
 import React from 'react';
 
@@ -42,7 +42,7 @@ export function PowerSupplyField({currentPowerSupply, computerParts, handleClick
             <div className='[BrandFilters] text-white bg-slate-700 w-full p-5 gap-5 flex flex-wrap text-2xl items-center'>
                 <b>Brand Filters: </b>
                 {
-                    brandFilters.map((brand, index) =>{
+                    brandFiltersPower.map((brand, index) =>{
                         return(
                             <button
                                 data-brand={brand}
@@ -59,6 +59,9 @@ export function PowerSupplyField({currentPowerSupply, computerParts, handleClick
             <div className='grid grid-cols-1 lg:grid-cols-2 p-5 gap-5'>
                 {
                     powerSupplies
+                    .sort(
+                        (a, b) => (powerSupplyIsCompatible(a, computerParts) ? 0 : 1) - (powerSupplyIsCompatible(b, computerParts) ? 0 : 1)
+                    )
                     .map((powerSupply, index) => {
                         return(
                             <button

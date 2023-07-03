@@ -2,7 +2,7 @@ import { RAM, Motherboard } from '../RawData/RawDataInterfaces';
 import { rams } from '../RawData/RAMData';
 import { ReactComponent as ArrowDownSvg } from '../Icons/arrow-down.svg';
 import { ramIsCompatible } from '../Compatibility/CompatibilityFunctions';
-import { brandFilters } from '../RawData/Filters';
+import { brandFiltersMemory } from '../RawData/Filters';
 import React from 'react';
 
 type Props = {
@@ -60,7 +60,7 @@ export function RAMField({currentRAM, currentMotherboard, handleClick , availabl
             <div className='[BrandFilters] text-white bg-slate-700 w-full p-5 gap-5 flex flex-wrap text-2xl items-center'>
                 <b>Brand Filters: </b>
                 {
-                    brandFilters.map((brand, index) =>{
+                    brandFiltersMemory.map((brand, index) =>{
                         return(
                             <button
                                 data-brand={brand}

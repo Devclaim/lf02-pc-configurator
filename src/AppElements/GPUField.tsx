@@ -2,7 +2,7 @@ import { GPU, Motherboard } from '../RawData/RawDataInterfaces';
 import { gpus } from '../RawData/GPUData';
 import { ReactComponent as ArrowDownSvg } from '../Icons/arrow-down.svg';
 import { gpuIsCompatible } from '../Compatibility/CompatibilityFunctions';
-import { brandFilters } from '../RawData/Filters';
+import { brandFilters, gpuModelFilters } from '../RawData/Filters';
 import React from 'react';
 
 type Props = {
@@ -13,6 +13,7 @@ type Props = {
 
 export function GPUField({currentGPU, currentMotherboard, handleClick}: Props) {
     const [activeBrandFilters, setActiveBrandFilters] = React.useState<string[]>([])
+    const [activeModelFilters, setActiveModelFilters] = React.useState<string[]>([])
 
     function handleBrandClick(e: React.MouseEvent<HTMLButtonElement>) {
         const newFilter: string = e.currentTarget.dataset['brand']!;
@@ -21,6 +22,16 @@ export function GPUField({currentGPU, currentMotherboard, handleClick}: Props) {
             setActiveBrandFilters([...activeBrandFilters, newFilter])
         } else {
             setActiveBrandFilters(activeBrandFilters => activeBrandFilters.filter((filter) => filter != newFilter))
+        }
+    }
+
+    function handleModelClick(e: React.MouseEvent<HTMLButtonElement>) {
+        const newFilter: string = e.currentTarget.dataset['model']!;
+
+        if(!activeModelFilters.includes(newFilter)) {
+            setActiveModelFilters([...activeModelFilters, newFilter])
+        } else {
+            setActiveModelFilters(activeModelFilters => activeModelFilters.filter((filter) => filter != newFilter))
         }
     }
 
@@ -57,6 +68,23 @@ export function GPUField({currentGPU, currentMotherboard, handleClick}: Props) {
                     })
                 }
             </div>
+            <div className='[ModelFilters] text-white bg-slate-700 w-full p-5 gap-5 flex flex-wrap text-2xl items-center'>
+                <b>Model Filters: </b>
+                {
+                    gpuModelFilters.map((model, index) =>{
+                        return(
+                            <button
+                                data-model={model}
+                                key={index}
+                                className={`text-xl rounded-2xl ${activeModelFilters.includes(model) ? 'bg-white text-black' : ''} border-white border-2 p-2`}
+                                onClick={handleModelClick}
+                            >
+                                {model}
+                            </button>
+                        )
+                    })
+                }
+            </div>
             <div className='grid grid-cols-1 lg:grid-cols-2 p-5 gap-5'>
                 {
                     gpus
@@ -72,7 +100,12 @@ export function GPUField({currentGPU, currentMotherboard, handleClick}: Props) {
                                     'rounded-lg border-4 p-1 sm:p-5 flex flex-col sm:flex-row cursor-pointer '
                                     + `${gpu == currentGPU ? 'border-green-600 bg-green-100' : 'border-black'} `
                                     + `${gpuIsCompatible(gpu, currentMotherboard) ? '' : 'opacity-5'} `
-                                    + `${activeBrandFilters.length > 0 ? activeBrandFilters.includes(gpu.manufacturer) ? '' : 'hidden' : ''}`
+                                    + `${activeBrandFilters.length > 0 ? activeBrandFilters.includes(gpu.manufacturer) ? '' : 'hidden' : ''} `
+                                    + `${activeModelFilters.length > 0 ? 
+                                        activeModelFilters.some(str => 
+                                            gpu.model.includes(str)
+                                        )
+                                    ? '' : 'hidden' : ''} `
                                 }
                                 onClick={(e) => handleClick(e, gpu)}
                             >

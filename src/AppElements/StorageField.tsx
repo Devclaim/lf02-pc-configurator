@@ -1,7 +1,7 @@
 import { Storage, Motherboard } from '../RawData/RawDataInterfaces';
 import { storages } from '../RawData/StorageData';
 import { ReactComponent as ArrowDownSvg } from '../Icons/arrow-down.svg';
-import { brandFilters } from '../RawData/Filters';
+import { brandFiltersStorage } from '../RawData/Filters';
 import React from 'react';
 
 type Props = {
@@ -40,7 +40,7 @@ export function StorageField({currentStorage, handleClick}: Props) {
             <div className='[BrandFilters] text-white bg-slate-700 w-full p-5 gap-5 flex flex-wrap text-2xl items-center'>
                 <b>Brand Filters: </b>
                 {
-                    brandFilters.map((brand, index) =>{
+                    brandFiltersStorage.map((brand, index) =>{
                         return(
                             <button
                                 data-brand={brand}
