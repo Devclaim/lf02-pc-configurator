@@ -8,8 +8,11 @@ type Props = {
 
 export default function ZoomableImage({src, descr}: Props) {
     const [state, setState] = React.useState('0% 0%');
+    const [activatedHover, setActivatedHover] = React.useState(true);
 
     const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+        if(activatedHover) {return;}
+
         const target = e.target as HTMLElement;
         const { left, top, width, height } = target?.getBoundingClientRect();
         const x = (e.pageX - left) / width * 100;
@@ -19,10 +22,18 @@ export default function ZoomableImage({src, descr}: Props) {
 
     return(
         <div>
-            <div className="App-header">
-			<p className='font-bold'>
-				{descr}
-			</p>
+            <div className="App-header relative">
+                <button 
+                    className={`hidden sm:block text-xl rounded-2xl absolute left-10 ${activatedHover ? 'bg-white text-black' : ''} border-white border-2 p-2`}
+                    onClick={() => {
+                        setActivatedHover(!activatedHover)
+                    }}
+                >
+                    {activatedHover ? 'Activate' : 'Deactivate'} Zoom on Hover
+                </button>
+                <p className='font-bold'>
+                    {descr}
+                </p>
 		    </div>
             <figure 
                 onMouseMove={handleMouseMove}
@@ -31,7 +42,7 @@ export default function ZoomableImage({src, descr}: Props) {
             >
                 <img 
                     src={src}
-                    className="hover:opacity-0 block"
+                    className={`${activatedHover ? '': 'hover:opacity-0 block'}`}
                     alt="checkDieURLNochmal"
                 />
             </figure>
