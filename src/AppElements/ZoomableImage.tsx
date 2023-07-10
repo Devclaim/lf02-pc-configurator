@@ -21,8 +21,8 @@ export default function ZoomableImage({src, descr}: Props) {
     }
 
     return(
-        <div>
-            <div className="App-header relative">
+        <details>
+            <summary className="App-header relative cursor-pointer">
                 <button 
                     className={`hidden sm:block text-xl rounded-2xl absolute left-10 ${activatedHover ? 'bg-white text-black' : ''} border-white border-2 p-2`}
                     onClick={() => {
@@ -34,7 +34,7 @@ export default function ZoomableImage({src, descr}: Props) {
                 <p className='font-bold'>
                     {descr}
                 </p>
-		    </div>
+		    </summary>
             <figure 
                 onMouseMove={handleMouseMove}
                 className="bg-no-repeat w-full"
@@ -42,11 +42,11 @@ export default function ZoomableImage({src, descr}: Props) {
             >
                 <img 
                     src={src}
-                    className={`${activatedHover ? '': 'hover:opacity-0 block'}`}
+                    className={`${activatedHover ? '': 'hover:opacity-0 block'} w-full object-cover`}
                     alt="checkDieURLNochmal"
                 />
             </figure>
-        </div>
+        </details>
 
     )
 }
