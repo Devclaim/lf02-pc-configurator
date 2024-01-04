@@ -24,24 +24,6 @@ function App() {
 				Extras
 			</p>
 		</div>
-		<div className='bg-gray-600 min-h-[150vh] flex flex-col gap-10 sm:py-10'>
-			<ZoomableImage
-				src={diagramBase}
-				descr="UML Diagram Simplified"
-			/>
-			<ZoomableImage
-				src={diagram_adv1}
-				descr='UML Diagram +Filters'
-			/>
-			<ZoomableImage
-				src={diagram_adv2}
-				descr='UML Diagram +Filters +CompatibilityFunc'
-			/>
-			<ZoomableImage
-				src={useCaseDiagram}
-				descr='Use Case Diagram'
-			/>
-		</div>
 	</div>
   );
 }
